@@ -1,0 +1,95 @@
+.backshadow {
+    width: 100%;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.backshadow .custom_modal {
+    width: 500px;
+    min-height: 60vh;
+    background-color: #fff;
+    position: relative;
+    border: 3px solid #8365d7;
+    border-radius: 15px 10px;
+}
+
+.delete_icon {
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-size: 600;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    cursor: pointer;
+}
+
+.recipe_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    max-width: 400px;
+    margin: auto;
+    line-height: 1.2;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-weight:900;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.button_container_recipe {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.Recipe_btn {
+    background-color: #8365d7;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    color: antiquewhite;
+    font-size: large;
+}
+
+.Recipe_btn_cancel{
+    background-color: #b93434;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    color: antiquewhite;
+    font-size: large;
+}
+.Recipe_btn:hover {
+    background-color: #7765a8;
+    color: #fff;
+}
+
+.Recipe_btn_cancel:hover {
+    background-color: #7a3232;
+    color: #fff;
+}
+
