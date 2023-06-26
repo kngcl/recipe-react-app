@@ -1,0 +1,23 @@
+.pool {
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 5px 10px;
+    background-color: #8365d7;
+    box-shadow: 1px 1px 1px #000;
+    cursor: pointer;
+    font-size: 17px;
+    color: aliceblue;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.pool:hover {
+
+    background-color: #fff;
+    box-shadow: 2px 3px 5px #000;
+    color: #1F237C;
+}
+
+  .addrecipe_button:hover {
+    box-shadow: 3px 5px 3px #000;
+  }
