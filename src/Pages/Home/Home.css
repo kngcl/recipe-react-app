@@ -112,6 +112,8 @@ input[type='search'] {
 .recipe_individual {
   background-color: #fff;
   padding: 1rem;
+  opacity: 0.9;
+/*   display: flex; */
 }
 
 .icons {
@@ -160,4 +162,14 @@ input[type='search'] {
     url('https://images01.nicepage.com/c461c07a441a5d220e8feb1a/68a72ac64a305c539fb36d25/fgggg-min.jpg');
   background-size: cover;
   min-height: 100vh;
+}
+
+
+.icons_favorite_and_title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons_favorite{
+  font-size: x-large;
 }

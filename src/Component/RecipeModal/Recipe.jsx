@@ -17,7 +17,8 @@ export default function Recipe({ setModal }) {
 
     const data = new FormData(event.currentTarget);
     const values = Object.fromEntries(data.entries());
-    setItems((prev) => [...prev, values]);
+    const newUser = { id: Date.now(), ...values };
+    setItems((prev) => [...prev, newUser]);
     setModal(false);
   };
 
@@ -41,10 +42,12 @@ export default function Recipe({ setModal }) {
               placeholder="Enter Your Meal Name"
             />
           </div>
+
           <div>
             <label htmlFor="">Ingredients</label>
             <textarea rows="" cols="" name="Ingredients" />
           </div>
+
           <div>
             <label htmlFor="">Cooking Direction</label>
             <textarea rows="" cols="" name="CookingDirection" />
