@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-return-assign */
 /* eslint-disable prettier/prettier */
@@ -17,6 +18,7 @@ import Recipe from '../../Component/RecipeModal/Recipe';
 /* import Update from '../../Component/Update/Update'; */
 import QuizContext from '../../Context/Context';
 import './Home.css';
+import Update from '../../Component/Update/Update';
 
 const itemsForm = () => {
   const dats = localStorage.getItem('item');
@@ -29,24 +31,29 @@ const itemsForm = () => {
 export default function Home() {
   const [items, setItems] = useState(itemsForm());
   const [tool, setTool] = useState();
+  const [edit, setEdit] = useState('');
+
   useEffect(() => {
     localStorage.setItem('item', JSON.stringify(items));
   });
+
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
 
   function handleSort(id) {
-    const fillter = items.filter((elements, index) => {
-      return elements.id !== id;
-    });
-
-    setItems(fillter);
+    if (window.confirm('Are you Sure you want to delete?')) {
+      const fillter = items.filter((elements, index) => {
+        return elements.id !== id;
+      });
+      setItems(fillter);
+    }
   }
 
   return (
-    <QuizContext.Provider value={{ items, setItems }}>
+    <QuizContext.Provider value={{ items, setItems, edit }}>
       <div>
         {modal === true && <Recipe setModal={setModal} />}
-        {/*         {modal === true && <Update setModal={setModal} />} */}
+        {modal2 === true && <Update setModal={setModal2} />}
         <div className="header">
           <p className="FoodApp">Food Recipe</p>
           <div className="search_container">
@@ -67,29 +74,37 @@ export default function Home() {
                   <img src={item.FoodImage} alt="elt" className="food_child" />
                 </div>
                 <div className="icons_favorite_and_title">
-                  <p className="food_name">{item.Food}</p>
-                  <p
-                    className="icons_favorite"
-                    onClick={() => handleSort(item.id)}
-                  >
-                    {' '}
-                    &#9733;
-                  </p>
+                  <div className="title_favorite">
+                    <p className="food_name">{item.Food}</p>
+                    <p className="icons_favorite"> &#9733;</p>
+                  </div>
+
+                  <div className="icons_views">
+                    <p
+                      className="delete_icons_x"
+                      onClick={() => handleSort(item.id)}
+                    >
+                      <Button title="delete" width1="0.4rem" color="brown" />
+                    </p>
+                    <div className="icons">
+                      <div
+                        onClick={() => {
+                          setEdit(item);
+                        }}
+                      >
+                        <Button
+                          title="edit"
+                          setModal={setModal2}
+                          width1="0.4rem"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {tool && (
-                  <div className="icons">
-                    <div>
-                      <Button
-                        title="edit"
-                        setModal={setModal}
-                        width1="0.4rem"
-                      />
-                    </div>
-
-                    <p className="icon_view">view</p>
-                  </div>
-                )}
+                {/*  {tool && (
+                  
+                )} */}
               </div>
             ))}
           </div>

@@ -123,6 +123,20 @@ input[type='search'] {
   align-items: center;
 }
 
+.icons_views {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+.title_favorite {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .icon_edit {
   background-color: rebeccapurple;
   padding: 0.7rem;
