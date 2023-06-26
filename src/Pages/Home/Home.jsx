@@ -40,7 +40,6 @@ export default function Home() {
   const searchBar = () => {
     setSearchRecipe(val);
   };
-  console.log(searchRecipe);
 
   useEffect(() => {
     localStorage.setItem('item', JSON.stringify(items));
