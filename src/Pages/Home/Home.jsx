@@ -145,9 +145,6 @@ export default function Home() {
                               : 'black-icon fa-regular fa-heart'
                           }
                         />
-                        {/*                       {' '}
-                      &#9733;
-                    </p> */}
                       </div>
 
                       <div className="icons_views">
