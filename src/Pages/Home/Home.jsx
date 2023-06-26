@@ -34,6 +34,13 @@ export default function Home() {
   const [tool, setTool] = useState();
   const [edit, setEdit] = useState('');
   const [favorite, setFavorite] = useState('no');
+  const [searchRecipe, setSearchRecipe] = useState('');
+  const [val, setVal] = useState('');
+
+  const searchBar = () => {
+    setSearchRecipe(val);
+  };
+  console.log(searchRecipe);
 
   useEffect(() => {
     localStorage.setItem('item', JSON.stringify(items));
@@ -73,6 +80,12 @@ export default function Home() {
     localStorage.setItem('items', JSON.stringify(update));
   };
 
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+    setSearchRecipe('');
+    setFavorite('');
+  }, [items, val, favorite]);
+
   return (
     <QuizContext.Provider value={{ items, setItems, edit }}>
       <div>
@@ -81,79 +94,170 @@ export default function Home() {
         <div className="header">
           <p className="FoodApp">Food Recipe</p>
           <div className="search_container">
-            <input type="search" name="" placeholder="Search Your Recipe" />
-            <button type="submit" className="search_button">
+            <input
+              type="text"
+              name=""
+              placeholder="Search Your Recipe"
+              onChange={(e) => setVal(e.target.value)}
+              className="text"
+            />
+            <button type="submit" className="search_button" onClick={searchBar}>
               Search
             </button>
           </div>
+
           <div>
             <Button title="Add Recipe +" setModal={setModal} />
           </div>
         </div>
         <div className="recipe_container1">
           <div className="result_recipe recipe_result">
-            {items.map((item, i) => (
-              <div className="display_recipe recipe_individual" key={i}>
-                <div className="picture">
-                  <img src={item.FoodImage} alt="elt" className="food_child" />
-                  <div className="overlay">
-                    <div className="recipeDetailContainer">
-                      <div className="recipeDetail">
-                        <p>Description : </p>
-                        <span>{item.CookingDirection}</span>
-                      </div>
-                      <div className="recipeDetail">
-                        <p>Ingredient : </p>
-                        <span>{item.Ingredients}</span>
+            {searchRecipe === ''
+              ? items.map((item, i) => (
+                  <div className="display_recipe recipe_individual" key={i}>
+                    <div className="picture">
+                      <img
+                        src={item.FoodImage}
+                        alt="elt"
+                        className="food_child"
+                      />
+                      <div className="overlay">
+                        <div className="recipeDetailContainer">
+                          <div className="recipeDetail">
+                            <p>Description : </p>
+                            <span>{item.CookingDirection}</span>
+                          </div>
+                          <div className="recipeDetail">
+                            <p>Ingredient : </p>
+                            <span>{item.Ingredients}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <div className="icons_favorite_and_title">
-                  <div className="title_favorite">
-                    <p className="food_name">{item.Food}</p>
-                    <i
-                      onClick={() => FavoriteRecipe(item.id)}
-                      className={
-                        item.favorite === 'yes'
-                          ? 'red-icon fa-solid fa-heart'
-                          : 'black-icon fa-regular fa-heart'
-                      }
-                    />
-                    {/*                       {' '}
+                    <div className="icons_favorite_and_title">
+                      <div className="title_favorite">
+                        <p className="food_name">{item.Food}</p>
+                        <i
+                          onClick={() => FavoriteRecipe(item.id)}
+                          className={
+                            item.favorite === 'yes'
+                              ? 'red-icon fa-solid fa-heart'
+                              : 'black-icon fa-regular fa-heart'
+                          }
+                        />
+                        {/*                       {' '}
                       &#9733;
                     </p> */}
-                  </div>
+                      </div>
 
-                  <div className="icons_views">
-                    <p
-                      className="delete_icons_x"
-                      onClick={() => handleSort(item.id)}
-                    >
-                      <Button title="delete" width1="0.4rem" color="brown" />
-                    </p>
-                    <div className="icons">
-                      <div
-                        onClick={() => {
-                          setEdit(item);
-                        }}
-                      >
-                        <Button
-                          title="edit"
-                          setModal={setModal2}
-                          width1="0.4rem"
-                        />
+                      <div className="icons_views">
+                        <p
+                          className="delete_icons_x"
+                          onClick={() => handleSort(item.id)}
+                        >
+                          <Button
+                            title="delete"
+                            width1="0.4rem"
+                            color="brown"
+                          />
+                        </p>
+                        <div className="icons">
+                          <div
+                            onClick={() => {
+                              setEdit(item);
+                            }}
+                          >
+                            <Button
+                              title="edit"
+                              setModal={setModal2}
+                              width1="0.4rem"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/*  {tool && (
+                    {/*  {tool && (
                   
                 )} */}
-              </div>
-            ))}
+                  </div>
+                ))
+              : items
+                  .filter(
+                    (search) =>
+                      search.Food.toLowerCase() === searchRecipe.toLowerCase()
+                  )
+                  .map((item, i) => (
+                    <div className="display_recipe recipe_individual" key={i}>
+                      <div className="picture">
+                        <img
+                          src={item.FoodImage}
+                          alt="elt"
+                          className="food_child"
+                        />
+                        <div className="overlay">
+                          <div className="recipeDetailContainer">
+                            <div className="recipeDetail">
+                              <p>Description : </p>
+                              <span>{item.CookingDirection}</span>
+                            </div>
+                            <div className="recipeDetail">
+                              <p>Ingredient : </p>
+                              <span>{item.Ingredients}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="icons_favorite_and_title">
+                        <div className="title_favorite">
+                          <p className="food_name">{item.Food}</p>
+                          <i
+                            onClick={() => FavoriteRecipe(item.id)}
+                            className={
+                              item.favorite === 'yes'
+                                ? 'red-icon fa-solid fa-heart'
+                                : 'black-icon fa-regular fa-heart'
+                            }
+                          />
+                          {/*                       {' '}
+                      &#9733;
+                    </p> */}
+                        </div>
+
+                        <div className="icons_views">
+                          <p
+                            className="delete_icons_x"
+                            onClick={() => handleSort(item.id)}
+                          >
+                            <Button
+                              title="delete"
+                              width1="0.4rem"
+                              color="brown"
+                            />
+                          </p>
+                          <div className="icons">
+                            <div
+                              onClick={() => {
+                                setEdit(item);
+                              }}
+                            >
+                              <Button
+                                title="edit"
+                                setModal={setModal2}
+                                width1="0.4rem"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/*  {tool && (
+                  
+                )} */}
+                    </div>
+                  ))}
           </div>
         </div>
       </div>
