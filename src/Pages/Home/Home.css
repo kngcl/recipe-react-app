@@ -89,13 +89,57 @@ input[type='search'] {
 
 .picture {
   width: 100%;
+  position: relative;
 }
 
 .display_recipe {
   box-shadow: 1px 2px 3px 1px #2f234e;
   border-radius: 5px;
   width: 25%;
+ 
 }
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: rgba(0, 0, 0, 0.671);
+}
+
+.picture:hover .overlay {
+  opacity: 1;
+}
+
+.recipeDetailContainer {
+  margin-top: 2%;
+}
+
+.recipeDetail {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipeDetail p {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.recipeDetail span {
+  color: white;
+  margin-top: -10px;
+  word-wrap: break-word;
+  width: 100%;
+  padding-inline: 7px;
+}
+
 
 .result_recipe {
   display: flex;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-return-assign */
@@ -32,6 +33,7 @@ export default function Home() {
   const [items, setItems] = useState(itemsForm());
   const [tool, setTool] = useState();
   const [edit, setEdit] = useState('');
+  const [favorite, setFavorite] = useState('no');
 
   useEffect(() => {
     localStorage.setItem('item', JSON.stringify(items));
@@ -48,6 +50,28 @@ export default function Home() {
       setItems(fillter);
     }
   }
+
+  const FavoriteRecipe = (id) => {
+    const findOdj = items.find((obj) => {
+      return obj.id === id;
+    });
+
+    if (findOdj.favorite === 'yes') {
+      findOdj.favorite = 'no';
+    } else {
+      findOdj.favorite = 'yes';
+    }
+
+    setFavorite(findOdj.favorite);
+
+    const filtered = items.filter((value) => {
+      return value.id !== id;
+    });
+
+    const update = [...filtered, findOdj];
+
+    localStorage.setItem('items', JSON.stringify(update));
+  };
 
   return (
     <QuizContext.Provider value={{ items, setItems, edit }}>
@@ -72,11 +96,34 @@ export default function Home() {
               <div className="display_recipe recipe_individual" key={i}>
                 <div className="picture">
                   <img src={item.FoodImage} alt="elt" className="food_child" />
+                  <div className="overlay">
+                    <div className="recipeDetailContainer">
+                      <div className="recipeDetail">
+                        <p>Description : </p>
+                        <span>{item.CookingDirection}</span>
+                      </div>
+                      <div className="recipeDetail">
+                        <p>Ingredient : </p>
+                        <span>{item.Ingredients}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 <div className="icons_favorite_and_title">
                   <div className="title_favorite">
                     <p className="food_name">{item.Food}</p>
-                    <p className="icons_favorite"> &#9733;</p>
+                    <i
+                      onClick={() => FavoriteRecipe(item.id)}
+                      className={
+                        item.favorite === 'yes'
+                          ? 'red-icon fa-solid fa-heart'
+                          : 'black-icon fa-regular fa-heart'
+                      }
+                    />
+                    {/*                       {' '}
+                      &#9733;
+                    </p> */}
                   </div>
 
                   <div className="icons_views">
